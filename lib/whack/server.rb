@@ -1,7 +1,7 @@
 module Whack
   class Server
-    def initialize(game_klass, runner_klass = Whack::Runners::Gosu)
-      @game_klass = game_klass
+    def initialize(game, runner_klass = Whack::Runners::Gosu)
+      @game = game
       @runner_klass = runner_klass
     end
 
@@ -26,7 +26,7 @@ module Whack
     end
 
     def runner
-      @runner ||= @runner_klass.new(@game_klass, base_env)
+      @runner ||= @runner_klass.new(@game, base_env)
     end
   end
 end
