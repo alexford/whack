@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 # Middleware that draws stats
-require_relative '../objects/text'
-
 module Whack
   class Stats
     include Whack::Utils

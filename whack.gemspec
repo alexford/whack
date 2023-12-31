@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'yard', '~> 0.9'
 
   spec.add_dependency 'zeitwerk'
+  spec.add_dependency 'gosu', '~> 1.4', '>= 1.4.6'
 end
