@@ -1,0 +1,3 @@
+# Whack
+
+Rack for games

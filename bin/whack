@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bundler/setup'
+require 'whack'
+
+require 'pry'
+require 'stackprof'
+
+server = Whack::Server.new(Whack::Builder.parse_file('config.wu'))
+
+RubyVM::YJIT.enable
+
+server.run
