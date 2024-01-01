@@ -2,6 +2,8 @@ require 'gosu'
 
 module Whack
   class Objects::Base
+    include Whack::Backend
+
     attr_accessor :x, :y
 
     def initialize(x, y)
@@ -11,7 +13,7 @@ module Whack
 
     def draw
       # Should be overriden
-      Gosu::draw_rect(@x, @y, @x, @y, Gosu::Color::WHITE)
+      draw_rect(@x, @y, @x, @y, Color::WHITE)
     end
   end
 end

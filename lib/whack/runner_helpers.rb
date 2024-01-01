@@ -1,7 +1,6 @@
 module Whack::RunnerHelpers
   include Whack::Utils
 
-
   def record_update_time(time)
     @last_update_times ||= []
 
@@ -15,15 +14,5 @@ module Whack::RunnerHelpers
     return 0.0001 unless (@last_update_times || []).size > 50
 
     @last_update_times.sum(0.0) / @last_update_times.size
-  end
-
-  def fps_debug_text
-    "FPS #{current_fps}"
-  end
-
-  def timing_debug_text
-    game_ms = (average_game_time * 1000).round
-    draw_ms = (average_update_time * 1000).round
-    "D/G #{draw_ms}/#{game_ms}ms"
   end
 end

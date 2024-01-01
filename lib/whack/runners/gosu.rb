@@ -44,17 +44,13 @@ module Whack
       def draw
         update_start = runner.mono_time
 
-        runner.layers&.each do |layer|
-          layer&.each do |object|
-            object.draw
-          rescue => e
-            puts e
-          end
+        layers.each do |layer|
+          layer.draw
           Gosu.flush
         end
 
+        # TODO: rename to draw time
         runner.record_update_time(runner.mono_time - update_start)
-        #render_debug_text
 
         runner.frame += 1
       end
@@ -71,19 +67,14 @@ module Whack
 
       private
 
-      def render_debug_text
-        # TODO: move debug text somewhere else, configurable
-        start_x = 10
-        start_y = self.height - 30
-
-        @font ||= Gosu::Font.new(20)
-        @font.draw_text(runner.fps_debug_text, start_x, start_y, 10, 1.0, 1.0, Gosu::Color::WHITE)
-        @font.draw_text(runner.timing_debug_text, start_x+200, start_y, 10, 1.0, 1.0, Gosu::Color::WHITE)
+      def layers
+        (runner.layers || [])
+          .reject(&:empty?)
+          .map.with_index do |layer, i|
+            # Create Whack::Layers from any Arrays, set implicit order value
+            Whack::Layer.from_layer(layer, order: i)
+          end.sort_by(&:order)
       end
-    end
-
-    def current_fps
-      Gosu.fps
     end
   end
 end

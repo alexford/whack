@@ -3,7 +3,7 @@ module Whack
     attr_accessor :text, :color
 
     # TODO: more style options, z, etc.
-    def initialize(x, y, text, size = 20, color = Gosu::Color::WHITE)
+    def initialize(x, y, text, size = 20, color = Color::WHITE)
       super(x, y)
       @text = text
       @color = color
@@ -17,7 +17,7 @@ module Whack
     private
 
     def font
-      @font ||= Gosu::Font.new(@size, {})
+      @font ||= Font.new(@size, {})
     end
   end
 end

@@ -2,7 +2,6 @@ require_relative './rectangle.rb'
 
 module Whack
   class Objects::RectangleVectors < Whack::Objects::Rectangle
-
     def initialize(*args)
       super(*args)
       @last_x = @x
@@ -11,7 +10,7 @@ module Whack
 
     def draw
       if (@w > 2)
-        Gosu::draw_rect(@last_x, @last_y, @w, @h, Gosu::Color::WHITE)
+        draw_rect(@last_x, @last_y, @w, @h, Color::BLUE)
         @last_x = @x
         @last_y = @y
       end

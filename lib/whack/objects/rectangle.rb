@@ -4,7 +4,7 @@ module Whack
   class Objects::Rectangle < Whack::Objects::Base
     attr_accessor :x, :y, :w, :h
 
-    def initialize(x, y, w, h, color = Gosu::Color::WHITE)
+    def initialize(x, y, w, h, color = Color::WHITE)
       super(x, y)
       @w = w
       @h = h
@@ -12,7 +12,7 @@ module Whack
     end
 
     def draw
-      Gosu::draw_rect(@x, @y, @w, @h, Gosu::Color::WHITE)
+      draw_rect(@x, @y, @w, @h, @color)
     end
   end
 end

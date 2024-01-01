@@ -6,7 +6,7 @@ module Whack
     include Whack::Utils
 
     STAT_PAIRS = [
-      ["FPS", -> (_, _, _) { Gosu.fps }], # TODO: abstract Gosu call?
+      ["FPS", -> (_, _, _) { Whack::Backend.fps }],
       ["Objects", -> (_, _, layers) { (layers.sum { |l| l.count }).to_s + " (#{layers.count} layers)" }],
       ["Game Time", -> (_, _, _) { seconds_to_ms(average_game_time).to_s + "ms" }],
     ].freeze
@@ -25,9 +25,13 @@ module Whack
 
       state, layers = result
 
-      # TODO: maybe find a way for Gosu to understand "debug text in state goes in top left"
+      # TODO: maybe find a way for Whack to understand "debug text in state goes in top left"
       # rather than adding a "real" game layer?
-      layers << updated_text_objects(env, state, layers)
+      layers << Whack::Layer.new(
+        updated_text_objects(env, state, layers),
+        order: Whack::LAYER_ORDER_SYSTEM_OVERLAY,
+        offset: [20,20]
+      )
 
       [state, layers]
     end
@@ -44,7 +48,7 @@ module Whack
 
     def build_text_objects
       STAT_PAIRS.each_with_index do |pair, i|
-        @text_objects[pair[0]] = Whack::Objects::Text.new(30, 30 + i * 25, "#{pair[0]}: ")
+        @text_objects[pair[0]] = Whack::Objects::Text.new(0, i * 25, "#{pair[0]}: ")
       end
     end
 
