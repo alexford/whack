@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.executables << "whackup"
 
   spec.add_development_dependency 'bundler', '~> 2.0'
-  spec.add_development_dependency 'minitest', '~> 5.11'
+  spec.add_development_dependency 'rspec', '~> 3.1'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'stackprof'
   spec.add_development_dependency 'rake', '~> 13.0'
