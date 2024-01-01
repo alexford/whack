@@ -6,9 +6,9 @@ module Whack
     include Whack::Utils
 
     STAT_PAIRS = [
-      ["FPS", -> (_, _, _) { Whack::Backend.fps }],
-      ["Objects", -> (_, _, layers) { (layers.sum { |l| l.count }).to_s + " (#{layers.count} layers)" }],
-      ["Game Time", -> (_, _, _) { seconds_to_ms(average_game_time).to_s + "ms" }],
+      ['FPS', ->(_, _, _) { Whack::Backend.fps }],
+      ['Objects', ->(_, _, layers) { layers.sum(&:count).to_s + " (#{layers.count} layers)" }],
+      ['Game Time', ->(_, _, _) { "#{seconds_to_ms(average_game_time)}ms" }]
     ].freeze
 
     def initialize(app)
@@ -26,17 +26,19 @@ module Whack
       state, layers = result
 
       # TODO: maybe find a way for Whack to understand "debug text in state goes in top left"
-      # rather than adding a "real" game layer?
-      layers << Whack::Layer.new(
-        updated_text_objects(env, state, layers),
-        order: Whack::LAYER_ORDER_SYSTEM_OVERLAY,
-        offset: [20,20]
-      )
-
-      [state, layers]
+      # rather than adding a "real" game layer
+      [state, layers << stats_layer(env, state, layers)]
     end
 
     private
+
+    def stats_layer(env, state, layers)
+      Whack::Layer.new(
+        updated_text_objects(env, state, layers),
+        order: Whack::LAYER_ORDER_SYSTEM_OVERLAY,
+        offset: [20, 20]
+      )
+    end
 
     def updated_text_objects(env, state, layers)
       STAT_PAIRS.map do |pair|

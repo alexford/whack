@@ -1,0 +1,25 @@
+require:
+  - rubocop-rake
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 3.2
+  NewCops: enable
+
+Style/Documentation:
+  Enabled: false
+
+Naming/MethodParameterName:
+  Enabled: false # Params like x, y, z etc. actually make sense here
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/* # RSpec files have long blocks, deal with it
+
+
+# I RSpec how I want
+RSpec/NestedGroups:
+  Max: 4
+
+Rspec/MultipleExpectations:
+  Max: 3

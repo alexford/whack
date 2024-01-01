@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Whack
   class Server
     def initialize(game, runner_klass = Whack::Runners::Gosu)

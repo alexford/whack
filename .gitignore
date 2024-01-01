@@ -1,2 +1,3 @@
 dummy_site/public/*
 .DS_Store
+.ruby-version

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Whack
   module Utils
     def timed_block

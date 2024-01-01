@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Whack
   LAYER_ORDER_SUB_BACKGROUND = -1
   LAYER_ORDER_BACKGROUND = 0
