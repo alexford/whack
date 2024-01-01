@@ -20,6 +20,35 @@ describe Whack::Layer do
       expect(layer.order).to eq 10
       expect(layer.offset).to eq [10,20]
     end
+
+    describe 'nifty initializations inherited from Array' do
+      # Sanity-check that normal Array stuff works in combination with our
+      # additional kwargs
+      it 'accepts a length and a block' do
+        layer = described_class.new(5, order: 10, offset: [1,2]) { |i| i }
+
+        expect(layer).to eq [0,1,2,3,4]
+        expect(layer.order).to eq 10
+        expect(layer.offset).to eq [1,2]
+      end
+
+      it 'accepts a length' do
+        layer = described_class.new(3, order: 10, offset: [1,2])
+
+        expect(layer).to eq [nil, nil, nil]
+        expect(layer.order).to eq 10
+        expect(layer.offset).to eq [1,2]
+      end
+
+      it 'accepts a length and a value' do
+        layer = described_class.new(3, 'foo', order: 10, offset: [1,2])
+
+        expect(layer).to eq ['foo','foo','foo']
+        expect(layer.order).to eq 10
+        expect(layer.offset).to eq [1,2]
+      end
+    end
+
   end
 
   describe '#offset=' do
